@@ -1,6 +1,6 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+  <q-layout view="lHh Lpr lFf"> 
+    <q-header elevated class="bg-red-7">
       <q-toolbar>
         <q-btn
           flat
@@ -12,10 +12,10 @@
         />
 
         <q-toolbar-title>
-          Quasar App
+          Bossun App
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <div>bloody v1.0</div>
       </q-toolbar>
     </q-header>
 
@@ -23,14 +23,14 @@
       v-model="leftDrawerOpen"
       show-if-above
       bordered
-      content-class="bg-grey-1"
+      content-class="bg-grey-1 text-weight-bold"
     >
       <q-list>
         <q-item-label
           header
-          class="text-grey-8"
+          class="text-red-7 text-h5 text-weight-bold bg-black"
         >
-          Essential Links
+          AplikasiKu 
         </q-item-label>
         <EssentialLink
           v-for="link in essentialLinks"
@@ -51,47 +51,35 @@ import EssentialLink from 'components/EssentialLink.vue'
 
 const linksData = [
   {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
+    title: 'Home',
+    caption: '',
+    icon: 'home',
+    link: '/'
   },
   {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
+    title: 'Alarm',
+    caption: '',
+    icon: 'alarm',
+    link: '/alarm'
   },
   {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
+    title: 'Support Us',
+    caption: '',
+    icon: 'volunteer_activism',
+    link: '/donate'
   },
   {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
+    title: 'Settings',
+    caption: '',
+    icon: 'settings',
+    link: '/settings'
   },
   {
     title: 'Facebook',
-    caption: '@QuasarFramework',
+    caption: 'Aditya Andre',
     icon: 'public',
-    link: 'https://facebook.quasar.dev'
+    link: 'https://web.facebook.com/Kichiro37/'
   },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
 ];
 
 export default {
