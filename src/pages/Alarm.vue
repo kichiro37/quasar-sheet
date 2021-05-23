@@ -19,7 +19,13 @@
 	          </q-icon>
 	        </template>
 	      </q-input>
-	      <input type="submit" class="col-sm-1 q-ma-md" label="create" @click="CreateAlarm" >
+      </div>
+      <div class="row">
+        <q-btn class="col" @click="OpenQr" label="OpenQr" />
+        <q-input class="col" label="output" v-model="qrCode" />
+      </div>
+      <div class="row">
+	      <q-btn color="primary" class="col q-ma-md" label="create" @click="CreateAlarm"  />
       </div>
   	</div>
   	<AlarmInf 
@@ -44,18 +50,21 @@ const alarmDatas = [
     title: 'TANGI',
     caption: '06:00',
     icon: 'home',
+    qrCode: 'abb'
   },
   {
     id: '2',
     title: 'MASAK',
     caption: '08:00',
     icon: 'alarm',
+    qrCode: 'abc'
   },
   {
     id: '3',
     title: 'TIDUR',
     caption: '21:00',
     icon: 'volunteer_activism',
+    qrCode: 'abd'
   },
 ]
 
@@ -70,26 +79,42 @@ export default {
   		alarmDatas: alarmDatas,
   		title: null,
   		caption: null,
+      qrCode: null
   	}
   },
   methods: {
   	CreateAlarm() {
   		const params = {
   			title: this.title,
-  			caption: this.caption
+  			caption: this.caption,
+        qrCode: this.qrCode
   		}
   		alarmDatas.push(params)
   		this.title = ''
   		this.caption = ''
+      this.qrCode = ''
   		alert('Tambah Data Sukses')
   	},
-    OnDeleteAlarm(alarmIndex) {
-      alert('Berhasil Terhapus')
+    OnDeleteAlarm(alarmIndex, title) {
+      alert(`Berhasil Terhapus ${title}`)
       this.alarmDatas.splice(alarmIndex, 1)
     },
     OnUpdateAlarm(alarmData) {
       this.alarmDatas[alarmData.index].title = alarmData.title
-  }
+    },
+    OpenQr() {
+      cordova.plugins.barcodeScanner.scan(
+        result => {
+          alert(`SCAN SUKSES ${JSON.stringify(result)}`)
+          console.log(`SCAN SUKSES`, result)
+          this.qrCode = result.text
+        },
+        error => {
+          alert(`SCAN ERROR ${error}`)
+          console.log(`SCAN ERROR`, error)
+        }
+      )
+    }
   }
 }
 </script>

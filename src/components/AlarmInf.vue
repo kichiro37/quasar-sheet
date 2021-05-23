@@ -1,7 +1,7 @@
 <template>
   <div class="bg-red row q-pa-sm q-ma-sm">
     <div class="col-md-1 text-center">
-     <button @click="$emit('delete-alarm', alarmIndex)"> X </button>
+     <button @click="$emit('delete-alarm', alarmIndex, alarmData.title)"> X </button>
     </div>
      <div class="col-md-1 text-center">
      <button @click="UpdateAlarm(alarmIndex, alarmData.title)"> EDIT </button>
@@ -11,6 +11,9 @@
   	</div>
   	<div class="col text-center text-white">
   		{{alarmData.caption}}
+  	</div>
+  	<div class="col text-center text-white">
+  		{{alarmData.qrCode}}
   	</div>
   </div>
 </template>
