@@ -22,7 +22,7 @@
       </div>
       <div class="row">
         <q-btn class="col" @click="OpenQr" label="OpenQr" />
-        <q-input class="col" label="output" v-model="qrCode" />
+        <q-input class="col" label="output" disable v-model="qrCode" />
       </div>
       <div class="row">
 	      <q-btn color="primary" class="col q-ma-md" label="create" @click="CreateAlarm"  />
@@ -41,32 +41,8 @@
 
 <script>
 
-import {Quasar, QTime} from 'quasar'
+import {Quasar, QTime, LocalStorage} from 'quasar'
 import AlarmInf from 'components/AlarmInf'
-
-const alarmDatas = [
-  {
-    id: '1',
-    title: 'TANGI',
-    caption: '06:00',
-    icon: 'home',
-    qrCode: 'abb'
-  },
-  {
-    id: '2',
-    title: 'MASAK',
-    caption: '08:00',
-    icon: 'alarm',
-    qrCode: 'abc'
-  },
-  {
-    id: '3',
-    title: 'TIDUR',
-    caption: '21:00',
-    icon: 'volunteer_activism',
-    qrCode: 'abd'
-  },
-]
 
 export default {
   name: 'Alarm',
@@ -76,20 +52,30 @@ export default {
   },
   data () {
   	return {
-  		alarmDatas: alarmDatas,
+  		alarmDatas: [],
   		title: null,
   		caption: null,
       qrCode: null
   	}
   },
+  created () {
+    this.GetAlarmDatas()
+  },
   methods: {
+    GetAlarmDatas () {
+      this.alarmDatas = LocalStorage.getItem('alarmDatas') || []
+    },
+    SaveToStorage () {
+      LocalStorage.set('alarmDatas', this.alarmDatas)
+    },
   	CreateAlarm() {
   		const params = {
   			title: this.title,
   			caption: this.caption,
         qrCode: this.qrCode
   		}
-  		alarmDatas.push(params)
+  		this.alarmDatas.push(params)
+      this.SaveToStorage()
   		this.title = ''
   		this.caption = ''
       this.qrCode = ''
@@ -98,9 +84,11 @@ export default {
     OnDeleteAlarm(alarmIndex, title) {
       alert(`Berhasil Terhapus ${title}`)
       this.alarmDatas.splice(alarmIndex, 1)
+      this.SaveToStorage()
     },
     OnUpdateAlarm(alarmData) {
       this.alarmDatas[alarmData.index].title = alarmData.title
+      this.SaveToStorage()
     },
     OpenQr() {
       cordova.plugins.barcodeScanner.scan(
