@@ -41,32 +41,8 @@
 
 <script>
 
-import {Quasar, QTime} from 'quasar'
+import {Quasar, QTime, LocalStorage} from 'quasar'
 import AlarmInf from 'components/AlarmInf'
-
-const alarmDatas = [
-  {
-    id: '1',
-    title: 'TANGI',
-    caption: '06:00',
-    icon: 'home',
-    qrCode: 'Anjimlu'
-  },
-  {
-    id: '2',
-    title: 'MASAK',
-    caption: '08:00',
-    icon: 'alarm',
-    qrCode: 'good'
-  },
-  {
-    id: '3',
-    title: 'TIDUR',
-    caption: '21:00',
-    icon: 'volunteer_activism',
-    qrCode: 'Anjimlu'
-  },
-]
 
 export default {
   name: 'Alarm',
@@ -76,13 +52,22 @@ export default {
   },
   data () {
   	return {
-  		alarmDatas: alarmDatas,
+  		alarmDatas: [],
   		title: null,
   		caption: null,
       qrCode: null
-  	}
+    }
+  },
+  created() {
+    this.GetAlarmDatas()
   },
   methods: {
+    GetAlarmDatas() {
+      this.alarmDatas = LocalStorage.getItem('alarmDatas') || []
+    },
+    SaveStorage() {
+      LocalStorage.set('alarmDatas', this.alarmDatas)
+    },
   	CreateAlarm() {
   		const params = {
   			title: this.title,
@@ -90,6 +75,7 @@ export default {
         qrCode: this.qrCode
   		}
   		this.alarmDatas.push(params)
+      this.SaveStorage()
   		this.title = ''
   		this.caption = ''
       this.qrCode = ''
@@ -98,10 +84,12 @@ export default {
     OnDeleteAlarm(alarmIndex, title) {
       alert(`"${title}" - Berhasil Terhapus `)
       this.alarmDatas.splice(alarmIndex, 1)
+      this.SaveStorage()
     },
     OnUpdateAlarm(alarmData) {
       this.alarmDatas[alarmData.index].title = alarmData.title
       alert('Berhasil Edit')
+      this.SaveStorage()
     },
     OpenQr() {
       cordova.plugins.barcodeScanner.scan(
@@ -115,7 +103,7 @@ export default {
           console.log('SCAN ERROR', error)
         }
       )
-    }
+    },
   }
 }
 </script>
