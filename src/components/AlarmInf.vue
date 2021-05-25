@@ -10,7 +10,7 @@
   		{{alarmData.title}}	
   	</div>
   	<div class="col text-center text-white">
-  		{{alarmData.caption}}
+  		{{alarmData.time}}
   	</div>
   	<div class="col text-center text-white">
   		{{alarmData.qrCode}}
