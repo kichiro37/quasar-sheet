@@ -1,18 +1,16 @@
 <template>
-  <div class="bg-info row q-pa-sm q-ma-sm">
-    <div class="col-md-1 text-center">
-     <q-btn color="negative" @click="$emit('delete-alarm', alarmIndex, alarmData.title)"> X </q-btn>
+  <div class="bg-info row q-py-md q-my-sm q-gutter-x-xs">
+    <div class="col-2 text-center q-ma-auto q-gutter-x-xs">
+     <q-btn color="negative" padding="none" icon="delete" @click="$emit('delete-alarm', alarmIndex, alarmData.title)"> </q-btn>
+     <q-btn color="positive " padding="none" icon="edit" @click="UpdateAlarm(alarmIndex, alarmData)"> </q-btn>
     </div>
-     <div class="col-md-1 text-center">
-     <q-btn color="positive" @click="UpdateAlarm(alarmIndex, alarmData)"> EDIT </q-btn>
-    </div>
-  	<div class="col q-pa-sm text-center text-white">
+  	<div class="col-4 text-center text-white">
   		{{alarmData.title}}	
   	</div>
-  	<div class="col q-pa-sm text-center text-white">
+  	<div class="col-1 text-center text-white">
   		{{alarmData.time}}
   	</div>
-    <div class="col q-pa-sm text-center text-white">
+    <div class="col text-center text-white">
       {{alarmData.qrCode}}
     </div>
   </div>

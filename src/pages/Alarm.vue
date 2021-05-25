@@ -2,7 +2,7 @@
   <div>
   	<div class="q-mx-md q-mt-md">
       <div class="row q-gutter-x-md">
-        <q-input class="col" label="Cari Alarm" placeholder="kode QR" outlined v-model="search">
+        <q-input class="col" label="Cari Alarm" placeholder="kode QR" outlined v-model="search" >
           <template v-slot:append>
             <q-icon name="search" @click="SearchQR"/>
           </template>
