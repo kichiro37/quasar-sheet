@@ -31,9 +31,10 @@
       </div>
       <div class="row q-gutter-x-md">
         <q-input btn class="col" label="output" disable v-model="qrCode" />
-         <q-btn class="col" color="positive" label="OpenQr" @click="OpenQr"/>
+         <q-btn class="col-2" color="positive" icon="qr_code_scanner" @click="OpenQr"/>
       </div>
       <div class="row">
+        <q-btn class="q-ma-md" icon="restart_alt" color="positive" padding="none" @click="reset" />
         <q-btn v-if="alarmIndex != null" color="positive" class="col q-ma-md" label="update" @click="UpdateBaru(alarmDatas, alarmIndex)" 
         />
         <q-btn v-else color="primary" class="col q-ma-md" label="create" @click="CreateAlarm" />
@@ -75,6 +76,12 @@ export default {
     this.GetAlarmDatas()
   },
   methods: {
+    reset() {
+      this.title = ''
+      this.time = '00:00'
+      this.qrCode = ''
+      this.alarmIndex = null
+    },
     ScanQR() {
       return new Promise((resolve, reject) => {
         cordova.plugins.barcodeScanner.scan(
