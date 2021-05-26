@@ -2,7 +2,7 @@
   <q-page class="flex flex-center">
     <img
       alt="Quasar logo"
-      src="~assets/bloody.png"
+      src="~assets/icon.png"
     >
   </q-page>
 </template>
