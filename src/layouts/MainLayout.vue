@@ -15,7 +15,7 @@
           Bossun App
         </q-toolbar-title>
 
-        <div>bloody v1.0</div>
+        <div>bloody</div>
       </q-toolbar>
     </q-header>
 
@@ -30,7 +30,7 @@
           header
           class="text-red-7 text-h5 text-weight-bold bg-black"
         >
-          AplikasiKu 
+        AplikasiKu <span class="text-caption text-red">{{version}}</span> 
         </q-item-label>
         <EssentialLink
           v-for="link in essentialLinks"
@@ -48,6 +48,7 @@
 
 <script>
 import EssentialLink from 'components/EssentialLink.vue'
+import {version} from '../../package.json'
 
 const linksData = [
   {
@@ -88,7 +89,8 @@ export default {
   data () {
     return {
       leftDrawerOpen: false,
-      essentialLinks: linksData
+      essentialLinks: linksData,
+      version: version
     }
   }
 }
